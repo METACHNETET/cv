@@ -155,7 +155,7 @@
   pointer-events: none;
   width: 10px;
   height: 10px;
-  background: radial-gradient(circle, #ff00a1 0%, transparent 70%);
+  background: radial-gradient(circle, #ff00a1 0%, #00ffd5 80%, transparent 100%);
   border-radius: 50%;
   opacity: 1;
   animation: sparkle-fade 0.8s forwards;
@@ -186,6 +186,16 @@
   transform: translate(-50%, -50%) scale(1);
   transition: background 0.2s, box-shadow 0.2s, transform 0.18s cubic-bezier(.7,-0.2,.5,1.5);
   opacity: 0.85;
+  border: 2px solid #fff;
+  animation: cursor-glow 2s linear infinite;
+  filter: blur(0.5px);
+}
+@keyframes cursor-glow {
+  0% { border-color: #ff00a1; }
+  25% { border-color: #00ffd5; }
+  50% { border-color: #6e00ff; }
+  75% { border-color: #ff005e; }
+  100% { border-color: #ff00a1; }
 }
 body, html {
   cursor: none !important;
