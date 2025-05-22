@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>דבורה זילברשטיין - קורות חיים</title>
+  <style>
+    html, body {
+  cursor: url('logo.png') 24 24, auto;
+}
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0f0f0f;
+      color: #f5f5f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      direction: rtl;
+      scroll-behavior: smooth;
+    
+    }
+    header {
+      padding: 60px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #6e00ff, #ff005e);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .header-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 12px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 3rem;
+    }
+    p.subtitle {
+      font-size: 1.3rem;
+      color: #e0e0e0;
+    }
+    .logo {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      box-shadow: 0 8px 48px #ff00a1cc, 0 0 0 8px #6e00ff33;
+      background: #fff;
+      object-fit: cover;
+      border: 4px solid #fff2;
+      transition: box-shadow 0.3s, transform 0.3s;
+      margin: 0 auto;
+    }
+    .logo:hover {
+      box-shadow: 0 0 0 12px #00ffd555, 0 12px 64px #ff00a1cc;
+      transform: scale(1.07) rotateZ(-2deg);
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .card {
+      background: #1a1a1a;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    h2 {
+      border-bottom: 2px solid #444;
+      padding-bottom: 5px;
+      color: #ff00a1;
+      margin-top: 60px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      padding: 10px 0;
+      border-bottom: 1px solid #333;
+    }
+    a {
+      color: #00ffd5;
+      text-decoration: none;
+    }
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 0.9rem;
+      color: #888;
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 18px;
+      margin: 30px 0 10px 0;
+    }
+    .skill-card {
+      background: linear-gradient(135deg, #6e00ff 0%, #ff005e 100%);
+      color: #fff;
+      border-radius: 18px;
+      padding: 22px 0;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.13rem;
+      box-shadow: 0 4px 24px 0 #6e00ff55, 0 1.5px 0 #ff005e44 inset;
+      opacity: 0;
+      transform: translateY(40px) scale(0.92) rotateZ(-4deg);
+      animation: skillIn 0.8s cubic-bezier(.7,-0.2,.5,1.5) forwards;
+      animation-delay: calc(var(--i, 0) * 0.09s);
+      transition: 
+        transform 0.25s cubic-bezier(.7,-0.2,.5,1.5),
+        box-shadow 0.25s,
+        background 0.25s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .skill-card::before {
+      content: "";
+      position: absolute;
+      inset: -30% -30%;
+      background: conic-gradient(from 90deg, #ff00a1, #00ffd5, #6e00ff, #ff005e, #ff00a1);
+      filter: blur(18px);
+      opacity: 0.18;
+      z-index: 0;
+      transition: opacity 0.3s;
+    }
+    .skill-card:hover {
+      transform: scale(1.09) rotateZ(2deg);
+      box-shadow: 0 8px 40px #ff00a1cc, 0 0 0 4px #00ffd555;
+      background: linear-gradient(135deg, #ff005e 0%, #6e00ff 100%);
+    }
+    .skill-card:hover::before {
+      opacity: 0.35;
+    }
+    @keyframes skillIn {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotateZ(0);
+      }
+    }
+    .sparkle {
+  position: fixed;
+  pointer-events: none;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle, #ff00a1 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 1;
+  animation: sparkle-fade 0.8s forwards;
+  mix-blend-mode: screen;
+  z-index: 9999;
+}
+
+@keyframes sparkle-fade {
+  to {
+    opacity: 0;
+    transform: translateY(-20px) scale(0);
+  }
+}
+
+/* עכבר עגול צבעוני */
+#custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  background: radial-gradient(circle at 30% 30%, #ff00a1 60%, #6e00ff 100%);
+  box-shadow: 0 0 24px #ff00a1aa, 0 0 0 4px #00ffd555;
+  mix-blend-mode: lighten;
+  transform: translate(-50%, -50%) scale(1);
+  transition: background 0.2s, box-shadow 0.2s, transform 0.18s cubic-bezier(.7,-0.2,.5,1.5);
+  opacity: 0.85;
+}
+body, html {
+  cursor: none !important;
+}
+a:hover, button:hover, .skill-card:hover {
+  cursor: none !important;
+}
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+  <header>
+    <div class="header-center">
+      <img src="logo.png" alt="לוגו דבורה זילברשטיין" class="logo" />
+      <h1 id="main-title">דבורה זילברשטיין</h1>
+      <p class="subtitle" id="subtitle">מפתחת תוכנות יפהפיות</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2>📞 יצירת קשר</h2>
+    <p>טלפון: <a href="tel:+972527181611">052-718-1611</a></p>
+    <p>אימייל: <a href="mailto:D0527181611@gmail.com">D0527181611@gmail.com</a></p>
+    <p><a href="https://www.linkedin.com/in/dvora-zilberstein-32666b361/" target="_blank">LinkedIn</a> | <a href="https://github.com/METACHNETET" target="_blank">GitHub</a></p>
+
+    <h2>👩‍💻 פרופיל מקצועי</h2>
+    <p>מפתחת פולסטאק רספונסיבית עם רקע בהוראת צילום, בעלת תשוקה לחוויית משתמש ואסתטיקה. שילוב של יצירתיות ודיוק קוד.</p>
+
+    <h2>🔧 ניסיון תעסוקתי</h2>
+    <ul>
+      <li><strong>UP UP GO (2025):</strong> פיתוח אפליקציות ווב רספונסיביות, שיפור ביצועים ב-30%, אינטגרציית API.</li>
+      <li><strong>Closeup (2024):</strong> התמחות בפיתוח משחק לימודי עם zim.js, ניהול גרסאות ב-Bitbucket.</li>
+    </ul>
+
+    <h2>📂 פרויקטים</h2>
+    <ul>
+      <li>פלטפורמה להשכרת אביזרים (React)</li>
+      <li>אתר בית ספר לצילום – UX מרשים</li>
+      <li>אפליקציית חידון אינטראקטיבית</li>
+      <li>מחשבון חכם ב-Java</li>
+    </ul>
+
+    <div class="card">
+      <h2>🧠 כישורים טכניים</h2>
+      <div class="skills-grid">
+        <div class="skill-card">React</div>
+        <div class="skill-card">Angular</div>
+        <div class="skill-card">TypeScript</div>
+        <div class="skill-card">HTML</div>
+        <div class="skill-card">CSS</div>
+        <div class="skill-card">MobX</div>
+        <div class="skill-card">Java</div>
+        <div class="skill-card">Python</div>
+        <div class="skill-card">Node.js</div>
+        <div class="skill-card">C#</div>
+        <div class="skill-card">MongoDB</div>
+        <div class="skill-card">Docker</div>
+        <div class="skill-card">Git</div>
+        <div class="skill-card">WordPress</div>
+        <div class="skill-card">Linux</div>
+        <div class="skill-card">Postman</div>
+        <div class="skill-card">Swagger</div>
+      </div>
+    </div>
+
+    <h2>🎓 השכלה</h2>
+    <p>הנדסת תוכנה – סמינר אוהל אברהם (2022–2024)</p>
+    <p>תקשורת חזותית – המכללה למינהל (2010)</p>
+
+    <h2>🌐 שפות</h2>
+    <p>עברית – שפת אם | אנגלית – מצוינת</p>
+  </div>
+
+  <footer>
+    © דבורה זילברשטיין | 2025
+  </footer>
+<div id="custom-cursor"></div>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.utils.toArray("h2").forEach((el, i) => {
+      gsap.from(el, {
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
+        duration: 1,
+        opacity: 0,
+        y: 100,
+        rotationX: 90,
+        scale: 0.5,
+        ease: "elastic.out(1, 0.5)",
+        delay: i * 0.15,
+      });
+    });
+
+    gsap.utils.toArray("p").forEach((el, i) => {
+      gsap.from(el, {
+        scrollTrigger: {
+          trigger: el,
+          start: "top 90%",
+          toggleActions: "play none none reverse",
+        },
+        duration: 1,
+        opacity: 0,
+        y: 60,
+        rotationZ: 15,
+        scale: 0.8,
+        ease: "back.out(1.7)",
+        delay: i * 0.1,
+      });
+    });
+
+    gsap.utils.toArray("li").forEach((el, i) => {
+      gsap.from(el, {
+        scrollTrigger: {
+          trigger: el,
+          start: "top 90%",
+          toggleActions: "play none none reverse",
+        },
+        duration: 0.8,
+        opacity: 0,
+        x: -150,
+        rotationY: 180,
+        scale: 0.7,
+        ease: "power3.out",
+        delay: i * 0.07,
+      });
+    });
+
+    document.querySelectorAll('.skill-card').forEach((el, i) => {
+      el.style.setProperty('--i', i);
+    });
+  </script>
+  <script>
+  document.addEventListener('mousemove', e => {
+    const sparkle = document.createElement('div');
+    sparkle.classList.add('sparkle');
+    sparkle.style.left = e.clientX + 'px';
+    sparkle.style.top = e.clientY + 'px';
+    document.body.appendChild(sparkle);
+
+    setTimeout(() => {
+      sparkle.remove();
+    }, 800);
+  });
+</script>
+<script>
+// עכבר עגול צבעוני עם scale בהובר על לינקים וכפתורים
+const cursor = document.getElementById('custom-cursor');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+});
+document.querySelectorAll('a, button, .skill-card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.transform = 'translate(-50%, -50%) scale(1.7)';
+    cursor.style.background = 'radial-gradient(circle at 70% 30%, #00ffd5 60%, #ff00a1 100%)';
+    cursor.style.boxShadow = '0 0 32px #00ffd5cc, 0 0 0 8px #ff00a155';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+    cursor.style.background = 'radial-gradient(circle at 30% 30%, #ff00a1 60%, #6e00ff 100%)';
+    cursor.style.boxShadow = '0 0 24px #ff00a1aa, 0 0 0 4px #00ffd555';
+  });
+});
+</script>
+
+</body>
+</html>
