@@ -27,6 +27,13 @@
       position: sticky;
       top: 0;
       z-index: 1000;
+      transition: padding 0.5s cubic-bezier(.7,-0.2,.5,1.5), background 0.5s, box-shadow 0.5s;
+      box-shadow: 0 2px 24px #6e00ff22;
+    }
+    header.shrink {
+      padding: 20px 20px;
+      background: linear-gradient(135deg, #6e00ff 60%, #ff005e 100%);
+      box-shadow: 0 2px 24px #ff00a122;
     }
     .header-center {
       display: flex;
@@ -35,14 +42,26 @@
       justify-content: center;
       text-align: center;
       gap: 12px;
+      transition: gap 0.5s, flex-direction 0.5s;
+    }
+    header.shrink .header-center {
+      gap: 4px;
     }
     h1 {
       margin: 0;
       font-size: 3rem;
+      transition: font-size 0.5s;
+    }
+    header.shrink h1 {
+      font-size: 1.5rem;
     }
     p.subtitle {
       font-size: 1.3rem;
       color: #e0e0e0;
+      transition: font-size 0.5s;
+    }
+    header.shrink p.subtitle {
+      font-size: 1rem;
     }
     .logo {
       width: 180px;
@@ -215,6 +234,7 @@ a:hover, button:hover, .skill-card:hover {
       <p class="subtitle" id="subtitle">מפתחת תוכנות יפהפיות</p>
     </div>
   </header>
+<div id="header-trigger"></div>
 
   <div class="container">
     <h2>📞 יצירת קשר</h2>
@@ -274,97 +294,45 @@ a:hover, button:hover, .skill-card:hover {
     © דבורה זילברשטיין | 2025
   </footer>
 <div id="custom-cursor"></div>
-  <script>
-    gsap.registerPlugin(ScrollTrigger);
 
-    gsap.utils.toArray("h2").forEach((el, i) => {
-      gsap.from(el, {
-        scrollTrigger: {
-          trigger: el,
-          start: "top 85%",
-          toggleActions: "play none none reverse",
-        },
-        duration: 1,
-        opacity: 0,
-        y: 100,
-        rotationX: 90,
-        scale: 0.5,
-        ease: "elastic.out(1, 0.5)",
-        delay: i * 0.15,
-      });
-    });
+<script>
+  // שינוי header מיד בתחילת הגלילה
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 0) {
+      header.classList.add('shrink');
+    } else {
+      header.classList.remove('shrink');
+    }
+  });
 
-    gsap.utils.toArray("p").forEach((el, i) => {
-      gsap.from(el, {
-        scrollTrigger: {
-          trigger: el,
-          start: "top 90%",
-          toggleActions: "play none none reverse",
-        },
-        duration: 1,
-        opacity: 0,
-        y: 60,
-        rotationZ: 15,
-        scale: 0.8,
-        ease: "back.out(1.7)",
-        delay: i * 0.1,
-      });
-    });
-
-    gsap.utils.toArray("li").forEach((el, i) => {
-      gsap.from(el, {
-        scrollTrigger: {
-          trigger: el,
-          start: "top 90%",
-          toggleActions: "play none none reverse",
-        },
-        duration: 0.8,
-        opacity: 0,
-        x: -150,
-        rotationY: 180,
-        scale: 0.7,
-        ease: "power3.out",
-        delay: i * 0.07,
-      });
-    });
-
-    document.querySelectorAll('.skill-card').forEach((el, i) => {
-      el.style.setProperty('--i', i);
-    });
-  </script>
-  <script>
+  // עכבר עגול צבעוני עם scale בהובר על לינקים וכפתורים
+  const cursor = document.getElementById('custom-cursor');
   document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    // אפקט נוצץ
     const sparkle = document.createElement('div');
     sparkle.classList.add('sparkle');
     sparkle.style.left = e.clientX + 'px';
     sparkle.style.top = e.clientY + 'px';
     document.body.appendChild(sparkle);
-
     setTimeout(() => {
       sparkle.remove();
     }, 800);
   });
-</script>
-<script>
-// עכבר עגול צבעוני עם scale בהובר על לינקים וכפתורים
-const cursor = document.getElementById('custom-cursor');
-document.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-});
-document.querySelectorAll('a, button, .skill-card').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    cursor.style.transform = 'translate(-50%, -50%) scale(1.7)';
-    cursor.style.background = 'radial-gradient(circle at 70% 30%, #00ffd5 60%, #ff00a1 100%)';
-    cursor.style.boxShadow = '0 0 32px #00ffd5cc, 0 0 0 8px #ff00a155';
+  document.querySelectorAll('a, button, .skill-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(1.7)';
+      cursor.style.background = 'radial-gradient(circle at 70% 30%, #00ffd5 60%, #ff00a1 100%)';
+      cursor.style.boxShadow = '0 0 32px #00ffd5cc, 0 0 0 8px #ff00a155';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+      cursor.style.background = 'radial-gradient(circle at 30% 30%, #ff00a1 60%, #6e00ff 100%)';
+      cursor.style.boxShadow = '0 0 24px #ff00a1aa, 0 0 0 4px #00ffd555';
+    });
   });
-  el.addEventListener('mouseleave', () => {
-    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-    cursor.style.background = 'radial-gradient(circle at 30% 30%, #ff00a1 60%, #6e00ff 100%)';
-    cursor.style.boxShadow = '0 0 24px #ff00a1aa, 0 0 0 4px #00ffd555';
-  });
-});
 </script>
-
 </body>
 </html>
